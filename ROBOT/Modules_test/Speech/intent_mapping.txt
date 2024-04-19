@@ -1,0 +1,11 @@
+intention: avance
+commande: avancer
+
+intention: recule
+commande: reculer
+
+intention: tourne à gauche
+commande: tourner à gauche
+
+intention: tourne à droite
+commande: tourner à droite
