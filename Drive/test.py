@@ -47,34 +47,4 @@ def stop():
     pwm_a.stop()
     pwm_b.stop()
 
-# Création d'un socket pour écouter les commandes
-serveur = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-serveur.bind(('10.38.165.197', 12345))  # Remplacez l'adresse IP par celle de votre Raspberry Pi
-serveur.listen(5)
-
-print("En attente de connexions...")
-client, adresse = serveur.accept()
-print(f"Connexion établie avec {adresse}")
-
-# Utilisation des fonctions
-try:
-    while True:
-
-        commande = client.recv(1024).decode()
-        print("Commande reçue:", commande)
-        
-        if commande == "avancer":
-            drive_forward()
-        else:
-            print("Commande non reconnue")
-
-        # Avancer
-        drive_forward()
-
-        time.sleep(0.1)  # Attendre un court instant avant de lire à nouveau les capteurs
-
-except KeyboardInterrupt:
-    pass
-
-# Nettoyage des broches GPIO
-GPIO.cleanup()
+drive_forward()
