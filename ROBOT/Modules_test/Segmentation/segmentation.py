@@ -1,7 +1,5 @@
 import openai
 
-#openai.api_key = 'sk-proj-3s9sWhvTsssgRrzb69mbT3BlbkFJkrVpsq1Nkuobi0SDLNSh'
-
 def segment_text_from_file(file_path):
     # Lire le contenu du fichier
     with open(file_path, "r") as file:
@@ -45,7 +43,6 @@ def main():
 
     # Ajoutez ici le code pour résumer les textes du patient et du médecin
     # et exécuter les commandes en fonction des requêtes du médecin
-
 
 if __name__ == "__main__":
     main()
