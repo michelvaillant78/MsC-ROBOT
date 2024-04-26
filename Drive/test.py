@@ -47,6 +47,15 @@ def stop():
     pwm_a.stop()
     pwm_b.stop()
 
+# Création d'un socket pour écouter les commandes
+serveur = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+serveur.bind(('10.38.165.197', 12345))  # Remplacez l'adresse IP par celle de votre Raspberry Pi
+serveur.listen(5)
+
+print("En attente de connexions...")
+client, adresse = serveur.accept()
+print(f"Connexion établie avec {adresse}")
+
 # Utilisation des fonctions
 try:
     while True:
