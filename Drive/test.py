@@ -47,29 +47,6 @@ def stop():
     pwm_a.stop()
     pwm_b.stop()
 
-def sonar_ping():
-    GPIO.output(trigger_pin, GPIO.HIGH)
-    time.sleep(0.00001)
-    GPIO.output(trigger_pin, GPIO.LOW)
-    start_time = time.time()
-    stop_time = time.time()
-    while GPIO.input(echo_pin) == 0:
-        start_time = time.time()
-    while GPIO.input(echo_pin) == 1:
-        stop_time = time.time()
-    elapsed_time = stop_time - start_time
-    distance = (elapsed_time * 34300) / 2  # vitesse du son en cm/s
-    return distance
-
-# Création d'un socket pour écouter les commandes
-serveur = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-serveur.bind(('10.38.165.197', 12345))  # Remplacez l'adresse IP par celle de votre Raspberry Pi
-serveur.listen(5)
-
-print("En attente de connexions...")
-client, adresse = serveur.accept()
-print(f"Connexion établie avec {adresse}")
-
 # Utilisation des fonctions
 try:
     while True:
@@ -81,27 +58,6 @@ try:
             drive_forward()
         else:
             print("Commande non reconnue")
-            
-        ldr_reading = GPIO.input(ldr_pin)
-        sonar_distance = sonar_ping()
-
-        print("LDR Reading:", ldr_reading)
-        print("Distance Reading:", sonar_distance)
-
-        # Vérifier si les lumières sont allumées
-        if ldr_reading < light_threshold:
-            stop()
-            print("Lights are off")
-            # Sortir de la boucle
-            break
-
-        # Vérifier la distance de ce qui est devant nous
-        if sonar_distance < sonar_threshold:
-            # Tourner autour
-            stop()
-            print("Obstacle detected!")
-            # Code pour faire demi-tour
-            # Mettez votre logique de mouvement ici
 
         # Avancer
         drive_forward()
